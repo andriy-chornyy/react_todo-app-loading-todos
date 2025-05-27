@@ -1,6 +1,7 @@
 import React from 'react';
 
 export const Header: React.FC = () => {
+
   return (
     <header className="todoapp__header">
       {/* this button should have `active` class only if all todos are completed */}
