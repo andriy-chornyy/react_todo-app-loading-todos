@@ -33,7 +33,7 @@ export const App: React.FC = () => {
       <div className="todoapp__content">
         <Header />
 
-        <TodoList />
+        <TodoList/>
 
         <Footer />
       </div>

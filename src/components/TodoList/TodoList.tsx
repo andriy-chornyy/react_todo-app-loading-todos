@@ -1,10 +1,14 @@
 import React from 'react';
-import { Todo } from '../Todo/Todo';
+import { TodoItem } from '../TodoItem/TodoItem';
+
+// type Props = {
+//   todoFtomServer: Todo[];
+// }
 
 export const TodoList: React.FC = () => {
   return (
     <section className="todoapp__main" data-cy="TodoList">
-      <Todo />
+      <TodoItem />
     </section>
   )
 }
