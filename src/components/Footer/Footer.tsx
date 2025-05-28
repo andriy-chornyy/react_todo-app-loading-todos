@@ -7,14 +7,19 @@ type Props = {
   allTodos: Todo[];
 }
 
-export const Footer: React.FC<Props> = () => {
+export const Footer: React.FC<Props> = ({allTodos}) => {
+  function notCompletedTodo() {
+    let notCompletedCount = allTodos.filter(todo => todo.completed === false).length;
+    console.log('notCompletedCount', notCompletedCount)
+    return notCompletedCount;
+  }
 
   return (
     <>
       {/* Hide the footer if there are no todos */}
       <footer className="todoapp__footer" data-cy="Footer">
         <span className="todo-count" data-cy="TodosCounter">
-          3 items left
+          {notCompletedTodo()} items left
         </span>
 
         {/* Active link should have the 'selected' class */}
