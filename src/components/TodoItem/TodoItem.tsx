@@ -1,8 +1,43 @@
 import React from 'react';
+import { Todo } from '../../types/Todo';
+import cn from 'classnames';
 
-export const TodoItem: React.FC = () => {
+type Props = {
+  todo: Todo;
+}
+
+
+export const TodoItem: React.FC<Props> = ({ todo: { id, userId, title, completed } }) => {
   return (
     <>
+       {/* This is a completed todo */}
+      {/* <div data-cy="Todo" className={completed ? "todo completed" : "todo"}> */}
+      <div data-cy="Todo" className={cn("todo", {completed: completed === true})}>
+        <label className="todo__status-label">
+          <input
+            data-cy="TodoStatus"
+            type="checkbox"
+            className="todo__status"
+            checked
+          />
+        </label>
+
+        <span data-cy="TodoTitle" className="todo__title">
+          {/* Completed Todo */}
+          {title}
+        </span>
+
+        {/* Remove button appears only on hover */}
+        <button type="button" className="todo__remove" data-cy="TodoDelete">
+          ×
+        </button>
+
+        {/* overlay will cover the todo while it is being deleted or updated */}
+        <div data-cy="TodoLoader" className="modal overlay">
+          <div className="modal-background has-background-white-ter" />
+          <div className="loader" />
+        </div>
+      </div>
 
     </>
   );
@@ -26,7 +61,7 @@ export const TodoItem: React.FC = () => {
 //         </label>
 
 //         <span data-cy="TodoTitle" className="todo__title">
-//           Completed Todo
+//           Completed Todo {title}<-----я
 //         </span>
 
 //         {/* Remove button appears only on hover */}

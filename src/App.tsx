@@ -14,7 +14,7 @@ import { client } from './utils/fetchClient';
 
 export const App: React.FC = () => {
   const [allTodos, setAllTodos] = useState<Todo[]>([]);
-  const [loadind, setLoading] = useState(false);
+  const [isLoadind, setIsLoading] = useState(false);
 
 
   const [isError, setIsError] = useState(false);
@@ -24,8 +24,18 @@ export const App: React.FC = () => {
   }
 
   useEffect(() => {
+    setIsLoading(true);
+
     client.get<Todo[]>('/todos?userId=2999')
       .then(setAllTodos)
+      .catch(() => {
+        setIsError(true)
+
+        setTimeout(() => {
+          setIsError(false)
+        }, 3000);
+      })
+      .finally(() => (setIsLoading(false)))
 
       console.log(allTodos);
     }, []);
@@ -37,12 +47,12 @@ export const App: React.FC = () => {
       <div className="todoapp__content">
         <Header />
 
-        <TodoList />
+        <TodoList allTodos={ allTodos } />
 
         { allTodos.length > 0 && (<Footer />) }
       </div>
 
-      { isError && (<ErrorNotification data-cy="ErrorNotification"/>)}
+      <ErrorNotification isError={isError} />
     </div>
   );
 };
