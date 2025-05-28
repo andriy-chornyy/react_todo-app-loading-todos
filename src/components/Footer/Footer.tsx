@@ -1,6 +1,13 @@
-import React from 'react';
+// import { todo } from 'node:test';
 
-export const Footer: React.FC = () => {
+import React from 'react';
+import { Todo } from '../../types/Todo';
+
+type Props = {
+  allTodos: Todo[];
+}
+
+export const Footer: React.FC<Props> = () => {
 
   return (
     <>

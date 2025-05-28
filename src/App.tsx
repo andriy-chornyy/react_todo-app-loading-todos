@@ -19,10 +19,6 @@ export const App: React.FC = () => {
 
   const [isError, setIsError] = useState(false);
 
-  if (!USER_ID) {
-    return <UserWarning />;
-  }
-
   useEffect(() => {
     setIsLoading(true);
 
@@ -36,9 +32,16 @@ export const App: React.FC = () => {
         }, 3000);
       })
       .finally(() => (setIsLoading(false)))
-
-      console.log(allTodos);
     }, []);
+
+  useEffect(() => {
+    console.log(allTodos);
+  }, [allTodos])
+
+
+  if (!USER_ID) {
+    return <UserWarning />;
+  }
 
   return (
     <div className="todoapp">
@@ -49,7 +52,7 @@ export const App: React.FC = () => {
 
         <TodoList allTodos={ allTodos } />
 
-        { allTodos.length > 0 && (<Footer />) }
+        { allTodos.length > 0 && (<Footer allTodos={ allTodos }/>) }
       </div>
 
       <ErrorNotification isError={isError} />
