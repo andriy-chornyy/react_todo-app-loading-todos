@@ -14,6 +14,10 @@ import { client } from './utils/fetchClient';
 
 export const App: React.FC = () => {
   const [allTodos, setAllTodos] = useState<Todo[]>([]);
+  const [loadind, setLoading] = useState(false);
+
+
+  const [isError, setIsError] = useState(false);
 
   if (!USER_ID) {
     return <UserWarning />;
@@ -21,7 +25,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     client.get<Todo[]>('/todos?userId=2999')
-      .then((response) => setAllTodos(response))
+      .then(setAllTodos)
 
       console.log(allTodos);
     }, []);
@@ -33,12 +37,12 @@ export const App: React.FC = () => {
       <div className="todoapp__content">
         <Header />
 
-        <TodoList/>
+        <TodoList />
 
-        <Footer />
+        { allTodos.length > 0 && (<Footer />) }
       </div>
 
-      <ErrorNotification />
+      { isError && (<ErrorNotification data-cy="ErrorNotification"/>)}
     </div>
   );
 };
