@@ -1,17 +1,24 @@
-// import { todo } from 'node:test';
-
 import React from 'react';
 import { Todo } from '../../types/Todo';
+import cn from 'classnames';
 
 type Props = {
   allTodos: Todo[];
-}
+  selectedValue: (selectedButton: string) => void;
+  onSelect: string;
+};
 
-export const Footer: React.FC<Props> = ({allTodos}) => {
+export const Footer: React.FC<Props> = ({
+  allTodos,
+  selectedValue,
+  onSelect,
+}) => {
+  function selectedButton(argument: string) {
+    selectedValue(argument);
+  }
+
   function notCompletedTodo() {
-    let notCompletedCount = allTodos.filter(todo => todo.completed === false).length;
-    console.log('notCompletedCount', notCompletedCount)
-    return notCompletedCount;
+    return allTodos.filter(todo => todo.completed === false).length;
   }
 
   return (
@@ -26,24 +33,29 @@ export const Footer: React.FC<Props> = ({allTodos}) => {
         <nav className="filter" data-cy="Filter">
           <a
             href="#/"
-            className="filter__link selected"
+            className={cn('filter__link', { selected: onSelect === 'All' })}
             data-cy="FilterLinkAll"
+            onClick={() => selectedButton('All')}
           >
             All
           </a>
 
           <a
             href="#/active"
-            className="filter__link"
+            className={cn('filter__link', { selected: onSelect === 'Active' })}
             data-cy="FilterLinkActive"
+            onClick={() => selectedButton('Active')}
           >
             Active
           </a>
 
           <a
             href="#/completed"
-            className="filter__link"
+            className={cn('filter__link', {
+              selected: onSelect === 'Completed',
+            })}
             data-cy="FilterLinkCompleted"
+            onClick={() => selectedButton('Completed')}
           >
             Completed
           </a>
