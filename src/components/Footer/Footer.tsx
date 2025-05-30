@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 type Props = {
   allTodos: Todo[];
-  selectedValue: (selectedButton: string) => void;
+  selectedValue: (value: string) => void;
   onSelect: string;
 };
 
@@ -13,10 +13,6 @@ export const Footer: React.FC<Props> = ({
   selectedValue,
   onSelect,
 }) => {
-  function selectedButton(argument: string) {
-    selectedValue(argument);
-  }
-
   function notCompletedTodo() {
     return allTodos.filter(todo => todo.completed === false).length;
   }
@@ -35,7 +31,7 @@ export const Footer: React.FC<Props> = ({
             href="#/"
             className={cn('filter__link', { selected: onSelect === 'All' })}
             data-cy="FilterLinkAll"
-            onClick={() => selectedButton('All')}
+            onClick={() => selectedValue('All')}
           >
             All
           </a>
@@ -44,7 +40,7 @@ export const Footer: React.FC<Props> = ({
             href="#/active"
             className={cn('filter__link', { selected: onSelect === 'Active' })}
             data-cy="FilterLinkActive"
-            onClick={() => selectedButton('Active')}
+            onClick={() => selectedValue('Active')}
           >
             Active
           </a>
@@ -55,7 +51,7 @@ export const Footer: React.FC<Props> = ({
               selected: onSelect === 'Completed',
             })}
             data-cy="FilterLinkCompleted"
-            onClick={() => selectedButton('Completed')}
+            onClick={() => selectedValue('Completed')}
           >
             Completed
           </a>

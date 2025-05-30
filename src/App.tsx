@@ -16,15 +16,11 @@ export const App: React.FC = () => {
   const [allTodos, setAllTodos] = useState<Todo[]>([]);
   const [todosToDisplay, setTodosToDisplay] = useState<Todo[]>([]);
 
-  // const [isLoadind, setIsLoading] = useState(false);
-
   const [selectedValue, setSelectedValue] = useState('All');
 
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    // setIsLoading(true);
-
     client
       .get<Todo[]>('/todos?userId=2999')
       .then(setAllTodos)
@@ -35,12 +31,9 @@ export const App: React.FC = () => {
           setIsError(false);
         }, 3000);
       });
-    // .finally(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
-    // setTodosToDisplay('All');
-
     let viewList = allTodos;
 
     if (selectedValue === 'Active') {
